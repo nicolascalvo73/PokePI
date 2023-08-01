@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.background {
+	z-index: 1;
+	width: 100%;
+	height: 99.49vh;
+	object-fit: fill;
+}
+.logo {
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	animation: fadeInLogo 2s forwards;
+}
+.title {
+	background-color: rgba(255, 255, 255, 0.8);
+	font-family: 'Press Start 2P', cursive;
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	animation: fadeInLogo 3s forwards;
+}
+
+@keyframes fadeInLogo {
+	from {
+		opacity: 0;
+		scale: 0;
+	}
+	to {
+		opacity: 1;
+		scale: 1;
+	}
+}
