@@ -12,20 +12,35 @@ const pokemonFormatter = require('../utils/formatter')
 
 const getAllPokemons = async () => {
 	const DBPokemons = await Pokemon.findAll()
-	const apiPokemons = await getPokemonByList('https://pokeapi.co/api/v2/pokemon?limit=100&offset=0')
-	return [...DBPokemons, ...apiPokemons]
+	const initialURL = 'https://pokeapi.co/api/v2/pokemon/'
+	let apiPokemons = []
+
+	const getPokemonByList = async (url) => {
+		const allApiPokemons = await axios.get(url)
+		const allApiPokemonsArray = allApiPokemons.data.results
+
+		const apiPokemons = await Promise.all(
+			allApiPokemonsArray.map(async (pokemon) => {
+				const id = pokemon.url.split('/').slice(-2, -1)[0]
+				const apiPokemon = await getPokemonById(id)
+				// console.log(id)
+				return apiPokemon
+			})
+		)
+
+		if (allApiPokemons.data.next !== null) {
+			const nextApiPokemons = await getPokemonByList(allApiPokemons.data.next)
+			return [...apiPokemons, ...nextApiPokemons]
+		}
+
+		return apiPokemons
+	}
+
+	const apiPokemon = await getPokemonByList(initialURL)
+	const allPokemons = [...DBPokemons, ...apiPokemon]
+	return allPokemons
 }
-const getPokemonByList = async (url) => {
-	const allApiPokemons = await axios(url)
-	const allApiPokemonsArray = allApiPokemons.data.results
-	const apiPokemons = allApiPokemonsArray.map(async (pokemon) => {
-		const id = pokemon.url.split('/').slice(-2, -1)[0]
-		const apiPokemon = await getPokemonById(id)
-		return apiPokemon
-	})
-	const response = await Promise.all(apiPokemons)
-	return response
-}
+
 const getPokemonByName = async (name) => {
 	const nombre = validateString(name)
 	let pokemon = await Pokemon.findOne({
@@ -45,7 +60,10 @@ const getPokemonById = async (id) => {
 	if (!id) throw Error('Hey! necesito el ID!')
 	if (isNaN(id)) {
 		validateUUIDv4(id)
-		const pokemon = await Pokemon.findByPk(id)
+		const pokemon = await Pokemon.findOne({
+			where: { ID: { id } },
+			include: [{ model: Type, attributes: ['Nombre'], through: { attributes: [] } }],
+		})
 		const types = await Pokemon.getTypes()
 		return { ...pokemon, Type: [...types] }
 	} else {
@@ -58,6 +76,8 @@ const getPokemonById = async (id) => {
 
 const createPokemon = async (Nombre, Imagen, Vida, Ataque, Defensa, Velocidad, Altura, Peso, Type) => {
 	validateString(Nombre)
+	const existence = await axios(`https://pokeapi.co/api/v2/pokemon/${nombre}`)
+	if (existence) throw Error('Ya existe un Pokemon con ese nombre.')
 	validateNumber(Vida)
 	validateNumber(Ataque)
 	validateNumber(Defensa)

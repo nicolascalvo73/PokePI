@@ -8,8 +8,8 @@ const {
 const getPokemonsHandler = async (req, res) => {
 	const { name } = req.query
 	try {
-		const request = name ? await getPokemonByName(name) : await getAllPokemons()
-		return res.status(200).json(request)
+		const response = name ? await getPokemonByName(name) : await getAllPokemons()
+		return res.status(200).json(response)
 	} catch (error) {
 		return res.status(400).json({ error: error.message })
 	}
@@ -17,8 +17,8 @@ const getPokemonsHandler = async (req, res) => {
 const getPokemonByIdHandler = async (req, res) => {
 	const { id } = req.params
 	try {
-		const request = await getPokemonById(id)
-		return res.status(200).json(request)
+		const response = await getPokemonById(id)
+		return res.status(200).json(response)
 	} catch (error) {
 		return res.status(400).json({ error: error.message })
 	}
