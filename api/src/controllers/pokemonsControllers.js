@@ -11,6 +11,7 @@ const axios = require('axios')
 const pokemonFormatter = require('../utils/formatter')
 
 const getAllPokemons = async () => {
+	console.log('trayendo todos los pokemones')
 	console.time('Tiempo de ejecución')
 	const DBPokemons = await Pokemon.findAll()
 	const initialURL = 'https://pokeapi.co/api/v2/pokemon/'
@@ -24,7 +25,6 @@ const getAllPokemons = async () => {
 			allApiPokemonsArray.map(async (pokemon) => {
 				const id = pokemon.url.split('/').slice(-2, -1)[0]
 				const apiPokemon = await getPokemonById(id)
-				// console.log(id)
 				return apiPokemon
 			})
 		)

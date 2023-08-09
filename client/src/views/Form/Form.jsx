@@ -1,5 +1,4 @@
 import styles from './Form.module.css'
-import pokelogo from '../../assets/images/logo.png'
 import wallpaper from '../../assets/wallpapers'
 import prev from '../../assets/images/prev.svg'
 import reload from '../../assets/images/reload.svg'
@@ -9,7 +8,6 @@ const Form = () => {
 
 	return (
 		<div className={styles.container}>
-			<img className={styles.logo} src={pokelogo} alt="logo pokemon" />
 			<div className={styles.detail}>
 				<button className={styles.button}>
 					<img src={prev} alt="type icon" />

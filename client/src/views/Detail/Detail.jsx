@@ -1,5 +1,5 @@
 import styles from './Detail.module.css'
-import pokelogo from '../../assets/images/logo.png'
+
 import wallpaper from '../../assets/wallpapers'
 import prev from '../../assets/images/prev.svg'
 
@@ -8,7 +8,6 @@ const Detail = () => {
 
 	return (
 		<div className={styles.container}>
-			<img className={styles.logo} src={pokelogo} alt="logo pokemon" />
 			<div className={styles.detail}>
 				<button className={styles.button}>
 					<img src={prev} alt="type icon" />

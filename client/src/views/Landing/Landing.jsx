@@ -1,8 +1,8 @@
-import styles from './Landing.module.css'
-import Pokeball from '../../components/Pokeball/Pokeball'
-import wallpaper from '../../assets/wallpapers'
-import pokelogo from '../../assets/images/logo.png'
 import { Link } from 'react-router-dom'
+import pokelogo from '../../assets/images/logo.png'
+import wallpaper from '../../assets/wallpapers'
+import Pokeball from '../../components/Pokeball/Pokeball'
+import styles from './Landing.module.css'
 
 const Landing = () => {
 	const imageUrl = wallpaper()

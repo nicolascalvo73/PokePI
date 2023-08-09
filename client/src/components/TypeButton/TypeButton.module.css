@@ -1,22 +1,6 @@
-.container {
-	top: 10vh;
-	padding: 16px;
-	left: 5%;
-	position: absolute;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	height: 70vh;
-	width: 90%;
-	background-color: rgba(0, 0, 0, 0.5);
-	border-radius: 32px;
-	z-index: 4;
-}
-
 .button {
-	position: absolute;
-	top: 42%;
+	position: relative;
+	top: -32px;
 	margin: 8px;
 	padding-top: 0.25em;
 	font-family: Helvetica;
@@ -25,11 +9,12 @@
 	height: 4em;
 	border-radius: 50%;
 	transition: transform 0.5s ease;
-	background-color: rgba(255, 255, 255);
+	background-color: rgba(255, 255, 255, 0.8);
 }
 .button:hover {
 	cursor: pointer;
-	transform: scale(1.1);
+	transform: scale(1.5);
+	background-color: greenyellow;
 }
 .button:hover tooltip {
 	opacity: 1;
@@ -37,12 +22,11 @@
 .button img {
 	width: 2em;
 }
-.button Tooltip {
+.button tooltip {
 	position: absolute;
 	font-weight: bolder;
 	text-align: center;
-	top: 48px;
-	left: -24px;
+	top: -16px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -54,12 +38,4 @@
 	border-radius: 0.7rem;
 	opacity: 0;
 	transition: opacity 0.3s ease;
-}
-
-.prev {
-	left: -32px;
-}
-
-.next {
-	right: -32px;
 }

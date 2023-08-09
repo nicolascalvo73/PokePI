@@ -12,20 +12,26 @@ import {
 	ORDEN_ATAQUE,
 } from '../actions/types'
 
-let names = []
+let Nombres = []
 
 export const getAllPokemons = () => {
-	return async function (dispatch) {
-		const response = await axios('/pokemons')
-		const pokemons = response.data
-		names = pokemons.map((pokemon) => pokemon.name)
-		dispatch({ type: GET_ALL_POKEMONS, payload: pokemons })
+	return async (dispatch) => {
+		const endpoint = 'http://localhost:3001/pokemons/'
+		try {
+			const response = await axios(endpoint)
+			const pokemons = response.data
+			Nombres = pokemons.map((pokemon) => pokemon.Nombre)
+			dispatch({ type: GET_ALL_POKEMONS, payload: pokemons })
+			console.log('estoy ejecutando esta action')
+		} catch (error) {
+			console.warning(error)
+		}
 	}
 }
 
 export const allNames = () => {
-	return async function (dispatch) {
-		dispatch({ type: ALL_NAMES, payload: names })
+	return async (dispatch) => {
+		dispatch({ type: ALL_NAMES, payload: Nombres })
 	}
 }
 

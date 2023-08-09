@@ -37,14 +37,6 @@
 	height: 99.49vh;
 	object-fit: fill;
 }
-.logo {
-	position: absolute;
-	top: 5%;
-	right: 0%;
-	transform: translate(-50%, -50%);
-	z-index: 2;
-	animation: fadeInLogo 1s forwards;
-}
 .button {
 	position: absolute;
 	left: -4em;
@@ -86,21 +78,4 @@
 	border-radius: 0.7rem;
 	opacity: 0;
 	transition: opacity 0.3s ease;
-}
-@keyframes fadeInLogo {
-	0% {
-		top: -25%;
-		opacity: 0;
-		scale: 0;
-	}
-	90% {
-		top: 25%;
-		opacity: 1;
-		scale: 1;
-	}
-	100% {
-		top: -1%;
-		opacity: 1;
-		scale: 0.5;
-	}
 }

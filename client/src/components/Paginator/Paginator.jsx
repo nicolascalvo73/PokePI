@@ -1,81 +1,37 @@
+/* eslint-disable react/jsx-no-undef */
 import styles from './Paginator.module.css'
 import Card from '../Card/Card'
 import prev from '../../assets/images/prev.svg'
 import next from '../../assets/images/next.svg'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
+// import { useState } from 'react'
 
 const Paginator = () => {
-	const pokes = [
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-		{
-			name: 'Ditto',
-			types: [1, 2],
-			img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg',
-		},
-	]
+	let page = 0
+	const allPokes = useSelector((state) => state.pokemons)
+	const [pokes, setPokes] = useState(allPokes.splice(page, 12))
+	const nextPage = () => {
+		page += 12
+		console.log(page)
+		setPokes(allPokes.splice(page, 12))
+	}
+	const prevPage = () => {
+		page -= 12
+		console.log(page)
+		setPokes(allPokes.splice(page, 12))
+	}
+
 	return (
 		<div className={styles.container}>
-			<button className={`${styles.button} ${styles.prev}`}>
+			<button onClick={prevPage} className={`${styles.button} ${styles.prev}`}>
 				<img src={prev} alt="type icon" />
 				<tooltip>anteriores</tooltip>
 			</button>
-			{pokes.map(({ name, types, img }, index) => {
-				return <Card key={index} id={index} name={name} types={types} img={img} />
+			{pokes.map(({ Nombre, Type, Imagen, ID }) => {
+				return <Card key={ID} id={ID} name={Nombre} types={Type} img={Imagen} />
 			})}
-			<button className={`${styles.next} ${styles.button}`}>
+			<button onClick={nextPage} className={`${styles.next} ${styles.button}`}>
 				<img src={next} alt="type icon" />
 				<tooltip>siguientes</tooltip>
 			</button>

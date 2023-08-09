@@ -1,6 +1,7 @@
 import styles from './Nav.module.css'
 import search from '../../assets/images/search.svg'
 import add from '../../assets/images/add.svg'
+import pokelogo from '../../assets/images/logo.png'
 
 const Nav = () => {
 	return (
@@ -24,6 +25,7 @@ const Nav = () => {
 			<button className={styles.add}>
 				<img src={add} alt="search button" />
 			</button>
+			<img className={styles.logo} src={pokelogo} alt="logo pokemon" />
 		</div>
 	)
 }
