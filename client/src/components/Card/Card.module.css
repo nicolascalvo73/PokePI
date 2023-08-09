@@ -18,7 +18,10 @@
 	display: flex;
 	bottom: -32px;
 }
-
+.link {
+	text-decoration: none;
+	color: black;
+}
 .container h3 {
 	font-family: 'Press Start 2P', cursive;
 	font-size: small;

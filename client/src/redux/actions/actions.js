@@ -44,7 +44,7 @@ export const getPokemonDetail = (id) => {
 
 export const getAllTypes = () => {
 	return async (dispatch) => {
-		const response = await axios('/types')
+		const response = await axios('http://localhost:3001/types/')
 		const types = response.data
 		dispatch({ type: GET_ALL_TYPES, payload: types })
 	}

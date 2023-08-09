@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Press Start 2P', cursive;
+	animation: pulso 2s infinite;
+}
+@keyframes pulso {
+	0% {
+		scale: 1;
+	}
+	50% {
+		scale: 0.75;
+	}
+}

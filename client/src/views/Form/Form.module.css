@@ -25,6 +25,7 @@
 	width: 50%;
 	height: 100%;
 	display: flex;
+	justify-content: center;
 	flex-direction: column;
 	align-items: center;
 }
@@ -36,6 +37,7 @@
 	margin-top: 5%;
 	background-color: rgba(255, 255, 255, 0.5);
 	width: 90%;
+	height: 540px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -46,20 +48,19 @@
 .info input {
 	margin: 0px;
 }
+.typeContainer {
+	position: relative;
+	top: -32px;
+	width: 120%;
+	scale: 0.65;
+}
 .background {
 	z-index: 1;
 	width: 100%;
 	height: 99.49vh;
 	object-fit: fill;
 }
-.logo {
-	position: absolute;
-	top: 5%;
-	right: 0%;
-	transform: translate(-50%, -50%);
-	z-index: 2;
-	animation: fadeInLogo 1s forwards;
-}
+
 .button {
 	position: absolute;
 	left: -4em;

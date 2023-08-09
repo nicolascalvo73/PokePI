@@ -1,15 +1,41 @@
-import styles from './Form.module.css'
-import wallpaper from '../../assets/wallpapers'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import prev from '../../assets/images/prev.svg'
 import reload from '../../assets/images/reload.svg'
+import wallpaper from '../../assets/wallpapers'
+import { getAllTypes } from '../../redux/actions/actions'
+import TypeButton from '../../components/TypeButton/TypeButton'
+import styles from './Form.module.css'
 
 const Form = () => {
 	const imageUrl = wallpaper()
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(getAllTypes())
+	}, [dispatch])
+	const types = useSelector((state) => state.types)
+	console.log(types)
+	const [image, setImage] = useState('https://lorempokemon.fakerapi.it/pokemon')
+
+	const goBack = () => {
+		window.history.go(-1)
+	}
+	const select = (event) => {
+		event.preventDefault()
+	}
+
+	const getImage = (event) => {
+		event.preventDefault()
+		let value = Math.floor(Math.random() * 100)
+		let url = `https://lorempokemon.fakerapi.it/pokemon/400/${value}`
+		setImage(url)
+		return url
+	}
 
 	return (
 		<div className={styles.container}>
 			<div className={styles.detail}>
-				<button className={styles.button}>
+				<button className={styles.button} onClick={goBack}>
 					<img src={prev} alt="type icon" />
 					<tooltip>volver</tooltip>
 				</button>
@@ -48,40 +74,25 @@ const Form = () => {
 							Peso:
 							<input type="number" placeholder="01" className={styles.input}></input>
 						</h3>
-
-						<h3>
-							<select className={styles.typeSelector}>
-								<option>type</option>
-								<option>normal</option>
-								<option>fighting</option>
-								<option>flying</option>
-								<option>poison</option>
-								<option>ground</option>
-								<option>rock</option>
-								<option>bug</option>
-								<option>ghost</option>
-								<option>steel</option>
-								<option>fire</option>
-								<option>water</option>
-								<option>grass</option>
-								<option>electric</option>
-								<option>psychic</option>
-								<option>ice</option>
-								<option>dragon</option>
-								<option>dark</option>
-								<option>fairy</option>
-								<option>unknown</option>
-								<option>shadow</option>
-							</select>
-						</h3>
+						<div className={styles.typeContainer}>
+							{types &&
+								types.map(({ ID, Nombre }) => {
+									return (
+										<TypeButton
+											key={ID}
+											id={ID}
+											type={Nombre}
+											className={styles.typeButton}
+											onClick={select}
+										/>
+									)
+								})}
+						</div>
 					</div>
 				</form>
 				<div className={styles.image}>
-					<img
-						src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg"
-						alt=""
-					/>
-					<button className={`${styles.button} ${styles.reload}`}>
+					<img src={image} alt="" />
+					<button onClick={getImage} className={`${styles.button} ${styles.reload}`}>
 						<img src={reload} alt="type icon" />
 						<tooltip>generar imagen</tooltip>
 					</button>

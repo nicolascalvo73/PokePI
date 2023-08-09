@@ -1,35 +1,61 @@
 import styles from './Detail.module.css'
 
-import wallpaper from '../../assets/wallpapers'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import prev from '../../assets/images/prev.svg'
+import wallpaper from '../../assets/wallpapers'
+import { clearDetail, getPokemonDetail } from '../../redux/actions/actions'
+import TypeButton from '../../components/TypeButton/TypeButton'
 
 const Detail = () => {
 	const imageUrl = wallpaper()
+	const { id } = useParams()
+	const { ID, Nombre, Vida, Ataque, Defensa, Velocidad, Altura, Peso, Type, Imagen } = useSelector(
+		(state) => state.detail
+	)
+	const name = Nombre ? Nombre.toUpperCase() : ''
+	console.log(Type)
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(getPokemonDetail(id))
+		return () => {
+			dispatch(clearDetail())
+		}
+	}, [dispatch, id])
+
+	const goBack = () => {
+		window.history.go(-1)
+	}
 
 	return (
 		<div className={styles.container}>
 			<div className={styles.detail}>
-				<button className={styles.button}>
+				<button className={styles.button} onClick={goBack}>
 					<img src={prev} alt="type icon" />
 					<tooltip>volver</tooltip>
 				</button>
 				<div className={styles.data}>
-					<h1>Ditto</h1>
+					{name !== '' && <h1>{name}</h1>}
 					<div className={styles.info}>
-						<h3>Id: 9879</h3>
-						<h3>Vida: 85</h3>
-						<h3>Ataque: 54</h3>
-						<h3>Defensa: 88</h3>
-						<h3>Velocidad: 54</h3>
-						<h3>Altura: 74</h3>
-						<h3>Peso: 45</h3>
-						<h3>-Rock- -Sarasa-</h3>
+						<h3>Id: {ID}</h3>
+						<h3>Vida: {Vida}</h3>
+						<h3>Ataque: {Ataque} </h3>
+						<h3>Defensa: {Defensa} </h3>
+						<h3>Velocidad: {Velocidad} </h3>
+						<h3>Altura: {Altura} </h3>
+						<h3>Peso: {Peso} </h3>
+						<div className={styles.typeContainer}>
+							{Type &&
+								Type.length > 0 &&
+								Type.map((type, index) => {
+									return <TypeButton key={index} id={index} type={type} />
+								})}
+						</div>
 					</div>
 				</div>
-				<img
-					src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg"
-					alt=""
-				/>
+				<img src={Imagen} alt="" />
 			</div>
 			<img className={styles.background} src={imageUrl} alt="imagen de fondo estilo comic" />
 		</div>

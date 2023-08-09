@@ -34,8 +34,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
 		case GET_POKEMON_DETAIL:
 			let pokemon
 			isNaN(payload)
-				? (pokemon = state.pokemons.find((item) => item.id === payload))
-				: (pokemon = state.pokemons.find((item) => item.id === Number(payload)))
+				? (pokemon = state.pokemons.find((item) => item.ID === payload))
+				: (pokemon = state.pokemons.find((item) => item.ID === Number(payload)))
+
 			return {
 				...state,
 				detail: pokemon,

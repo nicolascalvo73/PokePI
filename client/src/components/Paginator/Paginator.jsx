@@ -1,33 +1,39 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-undef */
-import styles from './Paginator.module.css'
-import Card from '../Card/Card'
-import prev from '../../assets/images/prev.svg'
-import next from '../../assets/images/next.svg'
-import { useSelector } from 'react-redux'
 import { useState } from 'react'
-// import { useState } from 'react'
+import next from '../../assets/images/next.svg'
+import prev from '../../assets/images/prev.svg'
+import Card from '../Card/Card'
+import styles from './Paginator.module.css'
 
-const Paginator = () => {
-	let page = 0
-	const allPokes = useSelector((state) => state.pokemons)
-	const [pokes, setPokes] = useState(allPokes.splice(page, 12))
+const Paginator = ({ allPokes }) => {
+	const itemsPage = 12
+	const [currentPage, setCurrentPage] = useState(0)
+
+	const startIndex = currentPage * itemsPage
+	const endIndex = startIndex + itemsPage
+	const pokes = allPokes.slice(startIndex, endIndex)
+
 	const nextPage = () => {
-		page += 12
-		console.log(page)
-		setPokes(allPokes.splice(page, 12))
+		if (currentPage < Math.floor(allPokes.length / itemsPage)) {
+			setCurrentPage(currentPage + 1)
+		}
 	}
+
 	const prevPage = () => {
-		page -= 12
-		console.log(page)
-		setPokes(allPokes.splice(page, 12))
+		if (currentPage > 0) {
+			setCurrentPage(currentPage - 1)
+		}
 	}
 
 	return (
 		<div className={styles.container}>
-			<button onClick={prevPage} className={`${styles.button} ${styles.prev}`}>
-				<img src={prev} alt="type icon" />
-				<tooltip>anteriores</tooltip>
-			</button>
+			{currentPage > 0 && (
+				<button onClick={prevPage} className={`${styles.button} ${styles.prev}`}>
+					<img src={prev} alt="type icon" />
+					<tooltip>anteriores</tooltip>
+				</button>
+			)}
 			{pokes.map(({ Nombre, Type, Imagen, ID }) => {
 				return <Card key={ID} id={ID} name={Nombre} types={Type} img={Imagen} />
 			})}

@@ -2,14 +2,26 @@ import styles from './Nav.module.css'
 import search from '../../assets/images/search.svg'
 import add from '../../assets/images/add.svg'
 import pokelogo from '../../assets/images/logo.png'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const Nav = () => {
+	const [input, setInput] = useState('')
+	const changeHandler = (event) => {
+		setInput(event.target.value)
+	}
 	return (
 		<div className={styles.container}>
-			<input type="text" placeholder="Introduce tu busqueda!" className={styles.input}></input>
-			<button className={styles.search}>
-				<img src={search} alt="search button" />
-			</button>
+			<input
+				onChange={changeHandler}
+				type="text"
+				placeholder="Introduce tu busqueda!"
+				className={styles.input}></input>
+			<Link to={`detail/${input}`}>
+				<button className={styles.search}>
+					<img src={search} alt="search button" />
+				</button>
+			</Link>
 			<div>
 				<select className={styles.selectorId}>
 					<option>Sort by ID</option>
@@ -22,10 +34,14 @@ const Nav = () => {
 					<option value="D">DataBase</option>
 				</select>
 			</div>
-			<button className={styles.add}>
-				<img src={add} alt="search button" />
-			</button>
-			<img className={styles.logo} src={pokelogo} alt="logo pokemon" />
+			<Link to="/create">
+				<button className={styles.add}>
+					<img src={add} alt="search button" />
+				</button>
+			</Link>
+			<Link to="/home">
+				<img className={styles.logo} src={pokelogo} alt="logo pokemon" />
+			</Link>
 		</div>
 	)
 }
