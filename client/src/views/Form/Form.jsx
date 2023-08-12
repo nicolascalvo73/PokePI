@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import prev from '../../assets/images/prev.svg'
 import reload from '../../assets/images/reload.svg'
-import wallpaper from '../../assets/wallpapers'
 import { getAllTypes } from '../../redux/actions/actions'
 import TypeButton from '../../components/TypeButton/TypeButton'
 import styles from './Form.module.css'
 
 const Form = () => {
-	const imageUrl = wallpaper()
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(getAllTypes())
@@ -98,7 +96,6 @@ const Form = () => {
 					</button>
 				</div>
 			</div>
-			<img className={styles.background} src={imageUrl} alt="imagen de fondo estilo comic" />
 		</div>
 	)
 }

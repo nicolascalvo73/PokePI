@@ -11,9 +11,14 @@ const axios = require('axios')
 const pokemonFormatter = require('../utils/formatter')
 
 const getAllPokemons = async () => {
-	console.log('trayendo todos los pokemones')
 	console.time('Tiempo de ejecución')
-	const DBPokemons = await Pokemon.findAll()
+	const DBPokemonsID = await Pokemon.findAll({ attributes: ['ID'] })
+	const getDBPokemons = DBPokemonsID.map(async (pokemon) => {
+		const pokemonData = await getPokemonById(pokemon.ID)
+		return pokemonData
+	})
+	const DBPokemons = await Promise.all(getDBPokemons)
+
 	const initialURL = 'https://pokeapi.co/api/v2/pokemon/'
 	let apiPokemons = []
 
@@ -39,7 +44,8 @@ const getAllPokemons = async () => {
 
 	const apiPokemon = await getPokemonByList(initialURL)
 	const allPokemons = [...DBPokemons, ...apiPokemon]
-	console.timeEnd('Tiempo de ejecución')
+	console.timeEnd()
+
 	return allPokemons
 }
 
@@ -60,14 +66,17 @@ const getPokemonByName = async (name) => {
 
 const getPokemonById = async (id) => {
 	if (!id) throw Error('Hey! necesito el ID!')
-	if (isNaN(id)) {
-		validateUUIDv4(id)
-		const pokemon = await Pokemon.findOne({
-			where: { ID: { id } },
+	if (validateUUIDv4(id)) {
+		console.log('UUID  =>  ' + id)
+		const response = await Pokemon.findByPk(id, {
 			include: [{ model: Type, attributes: ['Nombre'], through: { attributes: [] } }],
 		})
-		const types = await Pokemon.getTypes()
-		return { ...pokemon, Type: [...types] }
+		const pokemon = {
+			...response.toJSON(),
+			Type: response.Types.map((type) => type.Nombre),
+		}
+
+		return { ...pokemon }
 	} else {
 		const numberId = validateNumber(id)
 		const pokemon = await axios(`https://pokeapi.co/api/v2/pokemon/${numberId}`)
@@ -78,8 +87,6 @@ const getPokemonById = async (id) => {
 
 const createPokemon = async (Nombre, Imagen, Vida, Ataque, Defensa, Velocidad, Altura, Peso, Type) => {
 	validateString(Nombre)
-	const existence = await axios(`https://pokeapi.co/api/v2/pokemon/${nombre}`)
-	if (existence) throw Error('Ya existe un Pokemon con ese nombre.')
 	validateNumber(Vida)
 	validateNumber(Ataque)
 	validateNumber(Defensa)

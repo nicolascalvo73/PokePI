@@ -1,3 +1,6 @@
 body {
 	margin: 0;
+	background-image: url('https://img.freepik.com/vector-gratis/fondo-pantalla-estilo-comico_79603-1248.jpg?w=996&t=st=1690836940~exp=1690837540~hmac=db63583e4695202cbd764bf0ff212d18e889d6f65b248799c8efb76312cea50f');
+
+	background-size: cover;
 }

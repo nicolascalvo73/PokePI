@@ -1,6 +1,7 @@
 import styles from './Nav.module.css'
 import search from '../../assets/images/search.svg'
 import add from '../../assets/images/add.svg'
+import trash from '../../assets/images/trash.svg'
 import pokelogo from '../../assets/images/logo.png'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
@@ -23,20 +24,30 @@ const Nav = () => {
 				</button>
 			</Link>
 			<div>
-				<select className={styles.selectorId}>
-					<option>Sort by ID</option>
-					<option value="A">Ascending</option>
-					<option value="D">Descending</option>
+				<select className={styles.selectorName}>
+					<option>Nombre</option>
+					<option value="A">Ascendente</option>
+					<option value="D">Descendente</option>
+				</select>
+				<select className={styles.selectorAttack}>
+					<option>Ataque</option>
+					<option value="A">Ascendente</option>
+					<option value="D">Descendente</option>
 				</select>
 				<select className={styles.selectorSrc}>
-					<option>Sort from Src</option>
+					<option>Fuente</option>
 					<option value="A">Api</option>
 					<option value="D">DataBase</option>
 				</select>
 			</div>
+			<button className={styles.add}>
+				<img src={trash} alt="search button" />
+				<tooltip>Limpiar filtros</tooltip>
+			</button>
 			<Link to="/create">
 				<button className={styles.add}>
 					<img src={add} alt="search button" />
+					<tooltip>Crear Pokemon</tooltip>
 				</button>
 			</Link>
 			<Link to="/home">

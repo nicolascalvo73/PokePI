@@ -26,7 +26,7 @@
 	background-color: rgb(255, 255, 255);
 	animation: fadeIn 0.3s forwards;
 }
-.selectorId {
+.selectorName {
 	position: relative;
 	top: 8px;
 	margin: 8px 4px 8px 8px;
@@ -37,6 +37,19 @@
 	height: 3em;
 	border-top-left-radius: 1.5em;
 	border-bottom-left-radius: 1.5em;
+	transition: transform 0.5s ease;
+	background-color: rgb(255, 255, 255);
+	animation: fadeIn 0.3s forwards;
+}
+.selectorAttack {
+	position: relative;
+	top: 8px;
+	margin: 8px 4px 8px 0px;
+	padding-left: 1em;
+	font-family: Helvetica;
+	color: rgb(0, 0, 0);
+	width: 10em;
+	height: 3em;
 	transition: transform 0.5s ease;
 	background-color: rgb(255, 255, 255);
 	animation: fadeIn 0.3s forwards;
@@ -77,8 +90,11 @@
 .add {
 	cursor: pointer;
 	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	top: 8px;
-	margin: 8px 0px 0px 0px;
+	margin: 8px 4px 0px 0px;
 	font-family: Helvetica;
 	color: rgb(0, 0, 0);
 	width: 3em;
@@ -89,7 +105,7 @@
 	animation: fadeIn 0.3s forwards;
 }
 .add img {
-	height: 2em;
+	height: 1.5em;
 }
 .logo {
 	position: absolute;
@@ -99,6 +115,30 @@
 	z-index: 5;
 	animation: fadeInLogo 1s forwards;
 }
+
+.add:hover tooltip {
+	opacity: 1;
+}
+
+.add tooltip {
+	position: absolute;
+	font-weight: bolder;
+	text-align: center;
+	top: 32px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5em 1em;
+	z-index: 999;
+	pointer-events: none;
+	user-select: none;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 0.7rem;
+	opacity: 0;
+	color: white;
+	transition: opacity 0.3s ease;
+}
+
 @keyframes fadeInLogo {
 	0% {
 		top: -25%;

@@ -10,8 +10,8 @@
 	height: 45%;
 	background-color: rgba(255, 255, 255, 0.9);
 	border-radius: 32px;
-	animation: fadeInLogo 1s forwards;
-	transition: transform 0.5s ease;
+	animation: fadeInLogo 0.3s forwards;
+	transition: transform 0.3s ease;
 }
 .typeContainer {
 	position: absolute;
@@ -46,7 +46,7 @@
 	70% {
 		top: 25%;
 		opacity: 1;
-		scale: 1.2;
+		scale: 1.1;
 	}
 	100% {
 		top: -1%;

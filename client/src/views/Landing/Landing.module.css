@@ -24,6 +24,32 @@
 	animation: fadeInLogo 3s forwards;
 }
 
+.tooltip2:hover + .tooltip {
+	opacity: 1;
+}
+.tooltip {
+	position: absolute;
+	margin-top: 30%;
+	left: 46%;
+	text-decoration: none;
+	color: white;
+	font-weight: bolder;
+	font-family: Helvetica;
+	text-align: center;
+	top: -16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5em 1em;
+	z-index: 999;
+	pointer-events: none;
+	user-select: none;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 0.7rem;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
 @keyframes fadeInLogo {
 	from {
 		opacity: 0;

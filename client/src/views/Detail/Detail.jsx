@@ -1,15 +1,12 @@
 import styles from './Detail.module.css'
-
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import prev from '../../assets/images/prev.svg'
-import wallpaper from '../../assets/wallpapers'
 import { clearDetail, getPokemonDetail } from '../../redux/actions/actions'
 import TypeButton from '../../components/TypeButton/TypeButton'
 
 const Detail = () => {
-	const imageUrl = wallpaper()
 	const { id } = useParams()
 	const { ID, Nombre, Vida, Ataque, Defensa, Velocidad, Altura, Peso, Type, Imagen } = useSelector(
 		(state) => state.detail
@@ -57,7 +54,6 @@ const Detail = () => {
 				</div>
 				<img src={Imagen} alt="" />
 			</div>
-			<img className={styles.background} src={imageUrl} alt="imagen de fondo estilo comic" />
 		</div>
 	)
 }

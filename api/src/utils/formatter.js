@@ -1,7 +1,11 @@
 const pokemonFormatter = (pokemon) => {
 	if (!pokemon.id) throw Error('Formato no valido.')
 	const types = pokemon.types.map((element) => element.type.name)
-	const defaultImage = `https://lorempokemon.fakerapi.it/pokemon/400/`
+	const defaultImage = () => {
+		let value = Math.floor(Math.random() * 100)
+		let url = `https://lorempokemon.fakerapi.it/pokemon/400/${value}`
+		return url
+	}
 	const poke = {
 		ID: pokemon.id,
 		Nombre: pokemon.name,

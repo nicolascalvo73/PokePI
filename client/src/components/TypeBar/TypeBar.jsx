@@ -11,10 +11,14 @@ const TypeBar = () => {
 	}, [dispatch])
 	const types = useSelector((state) => state.types)
 
+	const print = (value) => {
+		return console.log(value)
+	}
+
 	return (
 		<div className={styles.container}>
 			{types.map(({ ID, Nombre }) => {
-				return <TypeButton key={ID} id={ID} type={Nombre} />
+				return <TypeButton key={ID} id={ID} type={Nombre} func={print} />
 			})}
 		</div>
 	)

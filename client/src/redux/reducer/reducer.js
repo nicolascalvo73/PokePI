@@ -9,7 +9,6 @@ import {
 	FILTER_SRC,
 	ORDEN_ALFABETICO,
 	ORDEN_ATAQUE,
-	ALL_NAMES,
 } from '../actions/types'
 
 const initialState = {
@@ -19,7 +18,6 @@ const initialState = {
 	detail: {},
 	types: [],
 	filtered: [],
-	names: [],
 }
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -103,12 +101,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				pokemons: filterAtaq,
-			}
-
-		case ALL_NAMES:
-			return {
-				...state,
-				names: payload,
 			}
 
 		default:

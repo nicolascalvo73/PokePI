@@ -5,8 +5,12 @@ import svgImages from '../../utils/svgImages'
 
 const TypeButton = ({ id, type, func }) => {
 	const img = svgImages[type]
+
+	const handleClick = () => {
+		func('click sobre: ' + type)
+	}
 	return (
-		<button className={styles.button} onClick={func}>
+		<button className={styles.button} onClick={handleClick}>
 			<img src={img} alt={`${type} icon id: ${id}`} />
 			<tooltip>{type}</tooltip>
 		</button>

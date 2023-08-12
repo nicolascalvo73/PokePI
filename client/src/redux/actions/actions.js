@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios'
 import {
-	ALL_NAMES,
 	CLEAR_DETAIL,
 	CLEAR_HOME,
 	FILTER_SRC,
@@ -12,26 +12,16 @@ import {
 	ORDEN_ATAQUE,
 } from '../actions/types'
 
-let Nombres = []
-
 export const getAllPokemons = () => {
 	return async (dispatch) => {
 		const endpoint = 'http://localhost:3001/pokemons/'
 		try {
 			const response = await axios(endpoint)
 			const pokemons = response.data
-			Nombres = pokemons.map((pokemon) => pokemon.Nombre)
 			dispatch({ type: GET_ALL_POKEMONS, payload: pokemons })
-			console.log('estoy ejecutando esta action')
 		} catch (error) {
 			console.warning(error)
 		}
-	}
-}
-
-export const allNames = () => {
-	return async (dispatch) => {
-		dispatch({ type: ALL_NAMES, payload: Nombres })
 	}
 }
 

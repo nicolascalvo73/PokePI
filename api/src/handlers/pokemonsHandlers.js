@@ -17,9 +17,11 @@ const getPokemonsHandler = async (req, res) => {
 const getPokemonByIdHandler = async (req, res) => {
 	const { id } = req.params
 	try {
+		console.log('handler working')
 		const response = await getPokemonById(id)
 		return res.status(200).json(response)
 	} catch (error) {
+		console.log('handler failing')
 		return res.status(400).json({ error: error.message })
 	}
 }
