@@ -3,7 +3,7 @@ const pokemonFormatter = (pokemon) => {
 	const types = pokemon.types.map((element) => element.type.name)
 	const defaultImage = () => {
 		let value = Math.floor(Math.random() * 100)
-		let url = `https://lorempokemon.fakerapi.it/pokemon/400/${value}`
+		let url = `https://lorempokemon.fakerapi.it/pokemon/100/${value}`
 		return url
 	}
 	const poke = {

@@ -31,7 +31,31 @@
 }
 .image img {
 	margin: 5%;
-	width: 90%;
+	width: 70%;
+}
+.submitButton {
+	height: 3em;
+	width: 12em;
+	border-radius: 1.5em;
+	font-family: 'Press Start 2P', cursive;
+	color: black;
+	background-color: white;
+	&:hover {
+		color: white;
+		background-color: black;
+	}
+}
+.isSelected {
+	background-color: cornflowerblue;
+}
+.disabled {
+	cursor: not-allowed;
+	color: lightgrey;
+	background-color: darkgrey;
+	&:hover {
+		color: darkgrey;
+		background-color: lightgrey;
+	}
 }
 .info {
 	margin-top: 5%;

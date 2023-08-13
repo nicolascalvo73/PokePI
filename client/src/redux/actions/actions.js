@@ -20,7 +20,7 @@ export const getAllPokemons = () => {
 			const pokemons = response.data
 			dispatch({ type: GET_ALL_POKEMONS, payload: pokemons })
 		} catch (error) {
-			console.warning(error)
+			console.log(error)
 		}
 	}
 }
@@ -47,13 +47,6 @@ export const clearDetail = () => {
 	}
 }
 
-export const createPokemon = (data) => {
-	return async () => {
-		const create = await axios.post('/pokemons', data)
-		return create
-	}
-}
-
 export const clearHome = () => {
 	return {
 		type: CLEAR_HOME,
@@ -67,7 +60,7 @@ export const filterType = (value) => {
 	}
 }
 
-export const filterOrigen = (value) => {
+export const filterSrc = (value) => {
 	return {
 		type: FILTER_SRC,
 		payload: value,
@@ -75,6 +68,7 @@ export const filterOrigen = (value) => {
 }
 
 export const ordenAlfabetico = (value) => {
+	console.log(value)
 	return {
 		type: ORDEN_ALFABETICO,
 		payload: value,

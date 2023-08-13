@@ -11,7 +11,7 @@ const axios = require('axios')
 const pokemonFormatter = require('../utils/formatter')
 
 const getAllPokemons = async () => {
-	console.time('Tiempo de ejecución')
+	console.time('Demoron: ')
 	const DBPokemonsID = await Pokemon.findAll({ attributes: ['ID'] })
 	const getDBPokemons = DBPokemonsID.map(async (pokemon) => {
 		const pokemonData = await getPokemonById(pokemon.ID)
@@ -19,8 +19,8 @@ const getAllPokemons = async () => {
 	})
 	const DBPokemons = await Promise.all(getDBPokemons)
 
-	const initialURL = 'https://pokeapi.co/api/v2/pokemon/'
-	let apiPokemons = []
+	// const initialURL = 'https://pokeapi.co/api/v2/pokemon/'
+	const initialURL = 'https://pokeapi.co/api/v2/pokemon/?limit=240'
 
 	const getPokemonByList = async (url) => {
 		const allApiPokemons = await axios.get(url)
@@ -29,22 +29,23 @@ const getAllPokemons = async () => {
 		const apiPokemons = await Promise.all(
 			allApiPokemonsArray.map(async (pokemon) => {
 				const id = pokemon.url.split('/').slice(-2, -1)[0]
+				// console.log(id)
 				const apiPokemon = await getPokemonById(id)
 				return apiPokemon
 			})
 		)
 
-		if (allApiPokemons.data.next !== null) {
-			const nextApiPokemons = await getPokemonByList(allApiPokemons.data.next)
-			return [...apiPokemons, ...nextApiPokemons]
-		}
+		// if (allApiPokemons.data.next !== null) {
+		// 	const nextApiPokemons = await getPokemonByList(allApiPokemons.data.next)
+		// 	return [...apiPokemons, ...nextApiPokemons]
+		// }
 
 		return apiPokemons
 	}
 
 	const apiPokemon = await getPokemonByList(initialURL)
 	const allPokemons = [...DBPokemons, ...apiPokemon]
-	console.timeEnd()
+	console.timeEnd('Demoron: ')
 
 	return allPokemons
 }

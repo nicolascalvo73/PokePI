@@ -1,16 +1,9 @@
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import pokelogo from '../../assets/images/logo.png'
 import Pokeball from '../../components/Pokeball/Pokeball'
-import { getAllPokemons } from '../../redux/actions/actions'
 import styles from './Landing.module.css'
 
 const Landing = () => {
-	const dispatch = useDispatch()
-	useEffect(() => {
-		dispatch(getAllPokemons())
-	}, [dispatch])
 	return (
 		<div>
 			<img className={styles.logo} src={pokelogo} alt="logo pokemon" />

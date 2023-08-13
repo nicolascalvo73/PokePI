@@ -13,7 +13,6 @@ const Paginator = ({ allPokes }) => {
 	const startIndex = currentPage * itemsPage
 	const endIndex = startIndex + itemsPage
 	const pokes = allPokes.slice(startIndex, endIndex)
-	console.log(pokes)
 
 	const nextPage = () => {
 		if (currentPage < Math.floor(allPokes.length / itemsPage)) {

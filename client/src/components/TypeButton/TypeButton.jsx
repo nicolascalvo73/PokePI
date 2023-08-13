@@ -3,14 +3,17 @@
 import styles from './TypeButton.module.css'
 import svgImages from '../../utils/svgImages'
 
-const TypeButton = ({ id, type, func }) => {
+const TypeButton = ({ id, type, func, isSelected }) => {
 	const img = svgImages[type]
 
-	const handleClick = () => {
-		func('click sobre: ' + type)
+	const handleClick = (buttonId) => {
+		func(buttonId)
 	}
 	return (
-		<button className={styles.button} onClick={handleClick}>
+		<button
+			type="button"
+			className={`${styles.button} ${isSelected ? styles.selected : ''}`}
+			onClick={() => handleClick(id)}>
 			<img src={img} alt={`${type} icon id: ${id}`} />
 			<tooltip>{type}</tooltip>
 		</button>

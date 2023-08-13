@@ -2,8 +2,14 @@
 import { Link } from 'react-router-dom'
 import TypeButton from '../TypeButton/TypeButton'
 import styles from './Card.module.css'
+import { useDispatch } from 'react-redux'
+import { filterType } from '../../redux/actions/actions'
 
 const Card = ({ name, types, img, id }) => {
+	const dispatch = useDispatch()
+	const filterByType = (value) => {
+		dispatch(filterType(value))
+	}
 	const pokeName = (name) => {
 		let nombre = name
 		if (name.length > 9) return nombre.slice(0, 9) + '...'
@@ -19,7 +25,7 @@ const Card = ({ name, types, img, id }) => {
 			<div className={styles.typeContainer}>
 				{types &&
 					types.map((type, index) => {
-						return <TypeButton key={index} type={type} />
+						return <TypeButton key={index} id={type} type={type} func={filterByType} />
 					})}
 			</div>
 		</div>
