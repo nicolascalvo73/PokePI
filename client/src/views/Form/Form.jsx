@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import prev from '../../assets/images/prev.svg'
 import reload from '../../assets/images/reload.svg'
-import { getAllTypes } from '../../redux/actions/actions'
+import { getAllTypes, createPokemon } from '../../redux/actions/actions'
 import TypeButton from '../../components/TypeButton/TypeButton'
 import styles from './Form.module.css'
 import Modal from '../../components/Modal/Modal'
-import axios from 'axios'
 import { validateForm } from '../../utils/validations'
 
 const Form = () => {
@@ -95,18 +94,18 @@ const Form = () => {
 			}, 4000)
 			return error
 		}
-		const post = await axios.post('http://localhost:3001/pokemons/', data)
-		if (post.status < 400) {
-			setModal({
-				title: 'Pokemon Creado!',
-				message: `Tu ${data.Nombre} fue creado con éxito!`,
-			})
-			setShowModal(true)
-			setTimeout(() => {
-				setShowModal(false)
-				setModal({ title: '', message: '' })
-			}, 4000)
-		}
+
+		dispatch(createPokemon(data))
+
+		setModal({
+			title: 'Pokemon Creado!',
+			message: `Tu ${data.Nombre} fue creado con éxito!`,
+		})
+		setShowModal(true)
+		setTimeout(() => {
+			setShowModal(false)
+			setModal({ title: '', message: '' })
+		}, 4000)
 	}
 
 	const getImage = (event) => {

@@ -32,6 +32,13 @@ export const getPokemonDetail = (id) => {
 	}
 }
 
+export const createPokemon = (data) => {
+	return async function (dispatch) {
+		const create = await axios.post('http://localhost:3001/pokemons/', data)
+		return create
+	}
+}
+
 export const getAllTypes = () => {
 	return async (dispatch) => {
 		const response = await axios('http://localhost:3001/types/')
