@@ -1,10 +1,10 @@
-import styles from './Detail.module.css'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import prev from '../../assets/images/prev.svg'
-import { clearDetail, getPokemonDetail } from '../../redux/actions/actions'
 import TypeButton from '../../components/TypeButton/TypeButton'
+import { clearDetail, getPokemonDetail } from '../../redux/actions/actions'
+import styles from './Detail.module.css'
 
 const Detail = () => {
 	const { id } = useParams()

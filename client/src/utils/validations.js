@@ -1,7 +1,8 @@
 export const validateForm = (object) => {
 	if (object.Type.length === 0) return 'El pokemon debe tener algun tipo.'
 	const regex = /[^A-Za-z]/
-	if (regex.test(object.Nombre)) return 'Verifica el nombre.'
+	if (regex.test(object.Nombre)) return 'Solo letras por favor.'
+	if (object.Nombre.length > 35) return 'El nombre es muy largo.'
 	const numericProperties = ['Vida', 'Ataque', 'Defensa', 'Velocidad', 'Altura', 'Peso']
 	for (const prop of numericProperties) {
 		if ((object[prop] !== '' && isNaN(Number(object[prop]))) || object[prop].length > 3) {

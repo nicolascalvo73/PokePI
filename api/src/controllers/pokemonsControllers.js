@@ -20,7 +20,7 @@ const getAllPokemons = async () => {
 	const DBPokemons = await Promise.all(getDBPokemons)
 
 	// const initialURL = 'https://pokeapi.co/api/v2/pokemon/'
-	const initialURL = 'https://pokeapi.co/api/v2/pokemon/?limit=240'
+	const initialURL = 'https://pokeapi.co/api/v2/pokemon/?limit=120'
 
 	const getPokemonByList = async (url) => {
 		const allApiPokemons = await axios.get(url)
@@ -53,7 +53,7 @@ const getAllPokemons = async () => {
 const getPokemonByName = async (name) => {
 	const nombre = validateString(name)
 	let pokemon = await Pokemon.findOne({
-		where: { Nombre: { [Op.iLike]: `%${nombre}%` } },
+		where: { Nombre: { [Op.eq]: nombre } },
 		include: [{ model: Type, attributes: ['Nombre'], through: { attributes: [] } }],
 	})
 	if (pokemon === null) {

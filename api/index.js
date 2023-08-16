@@ -25,7 +25,7 @@ const { getTypesToDB } = require('./src/controllers/typesControllers.js')
 
 // Syncing all the models at once.
 conn
-	.sync({ force: true }) // verificar si debo modificar esto luego
+	.sync({ force: true, alter: true }) // verificar si debo modificar esto luego
 	.then(() => {
 		server.listen(PORT || 3001, () => {
 			getTypesToDB()

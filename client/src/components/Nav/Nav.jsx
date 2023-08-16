@@ -42,7 +42,7 @@ const Nav = () => {
 			setInput('')
 			setShowModal(false)
 			setModal({ title: '', message: '' })
-		}, 1500)
+		}, 800)
 		navigate('/home')
 	}
 	const searchByName = async () => {
@@ -70,7 +70,7 @@ const Nav = () => {
 				setInput('')
 				setShowModal(false)
 				setModal({ title: '', message: '' })
-			}, 4000)
+			}, 3000)
 		}
 	}
 
@@ -92,17 +92,23 @@ const Nav = () => {
 			</button>
 			<div>
 				<select className={styles.selectorName} onChange={orderAlph}>
-					<option>Nombre</option>
+					<option disabled selected>
+						Nombre
+					</option>
 					<option value="az">A - Z</option>
 					<option value="za">Z - A</option>
 				</select>
 				<select className={styles.selectorAttack} onChange={orderAttack}>
-					<option>Ataque</option>
+					<option disabled selected>
+						Ataque
+					</option>
 					<option value="menor">Ascendente</option>
 					<option value="mayor">Descendente</option>
 				</select>
 				<select className={styles.selectorSrc} onChange={sortSrc}>
-					<option>Fuente</option>
+					<option disabled selected>
+						Fuente
+					</option>
 					<option value="true">Api</option>
 					<option value="false">DataBase</option>
 				</select>

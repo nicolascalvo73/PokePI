@@ -25,13 +25,18 @@ const getPokemonsTypes = async () => {
 }
 
 const getTypesToDB = async () => {
-	const response = await axios('https://pokeapi.co/api/v2/type/')
-	const pokemonTypes = response.data.results.map(({ name }, index) => {
-		return { ID: index + 1, Nombre: name }
-	})
+	const types = getPokemonsTypes()
+	if (!types.length) {
+		const response = await axios('https://pokeapi.co/api/v2/type/')
+		const pokemonTypes = response.data.results.map(({ name }, index) => {
+			return { ID: index + 1, Nombre: name }
+		})
 
-	await Promise.all(pokemonTypes.map((type) => Type.create(type)))
-	console.log('Pokemon Types cargados exitosamente en la DB.')
+		await Promise.all(pokemonTypes.map((type) => Type.create(type)))
+		console.log('Pokemon Types cargados exitosamente en la DB.')
+	} else {
+		console.log('Encontramos Types preexistentes en la DB.')
+	}
 }
 
 module.exports = { getPokemonsByType, getPokemonsTypes, getTypesToDB }

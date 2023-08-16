@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import prev from '../../assets/images/prev.svg'
 import reload from '../../assets/images/reload.svg'
-import { getAllTypes, createPokemon } from '../../redux/actions/actions'
-import TypeButton from '../../components/TypeButton/TypeButton'
-import styles from './Form.module.css'
 import Modal from '../../components/Modal/Modal'
+import TypeButton from '../../components/TypeButton/TypeButton'
+import { createPokemon, getAllTypes } from '../../redux/actions/actions'
 import { validateForm } from '../../utils/validations'
+import styles from './Form.module.css'
 
 const Form = () => {
 	const dispatch = useDispatch()
 	const types = useSelector((state) => state.types)
+	const master = useSelector((state) => state.master)
 	const [image, setImage] = useState('https://lorempokemon.fakerapi.it/pokemon')
 	const [selectedTypes, setSelectedTypes] = useState([])
 	const [showModal, setShowModal] = useState(false)
@@ -27,6 +28,7 @@ const Form = () => {
 		Type: [],
 		Imagen: image,
 	})
+	const reloadImg = useRef(null)
 
 	useEffect(() => {
 		setData({ ...data, Type: [...selectedTypes] })
@@ -47,7 +49,7 @@ const Form = () => {
 				}
 			}
 		}
-		return true // Todos los campos están completos
+		return true
 	}
 	let disabled = isDataComplete(data) ? '' : styles.disabled
 
@@ -81,7 +83,8 @@ const Form = () => {
 	}
 
 	const pokePost = async () => {
-		const error = validateForm(data)
+		let error = validateForm(data)
+		error = master.find((pokemon) => pokemon.Nombre === data.Nombre) ? `Ya existe ${data.Nombre}` : ''
 		if (error !== '') {
 			setModal({
 				title: 'Tenemos un problema...',
@@ -94,17 +97,28 @@ const Form = () => {
 			}, 4000)
 			return error
 		}
-
 		dispatch(createPokemon(data))
-
 		setModal({
 			title: 'Pokemon Creado!',
-			message: `Tu ${data.Nombre} fue creado con éxito!`,
+			message: `El pokemon ${data.Nombre} fue creado con éxito!`,
 		})
 		setShowModal(true)
 		setTimeout(() => {
 			setShowModal(false)
 			setModal({ title: '', message: '' })
+			reloadImg.current.click()
+			setData({
+				Nombre: '',
+				Ataque: '',
+				Vida: '',
+				Defensa: '',
+				Velocidad: '',
+				Altura: '',
+				Peso: '',
+				Type: [],
+				Imagen: image,
+			})
+			setSelectedTypes([])
 		}, 4000)
 	}
 
@@ -126,6 +140,7 @@ const Form = () => {
 				</button>
 				<form className={styles.data}>
 					<input
+						value={data.Nombre}
 						name="Nombre"
 						onChange={handleChange}
 						type="text"
@@ -135,6 +150,7 @@ const Form = () => {
 						<h3>
 							Vida:
 							<input
+								value={data.Vida}
 								maxLength="3"
 								name="Vida"
 								type="number"
@@ -146,6 +162,7 @@ const Form = () => {
 						<h3>
 							Ataque:
 							<input
+								value={data.Ataque}
 								name="Ataque"
 								type="number"
 								placeholder="01"
@@ -156,6 +173,7 @@ const Form = () => {
 						<h3>
 							Defensa:
 							<input
+								value={data.Defensa}
 								name="Defensa"
 								type="number"
 								placeholder="01"
@@ -166,6 +184,7 @@ const Form = () => {
 						<h3>
 							Velocidad:
 							<input
+								value={data.Velocidad}
 								name="Velocidad"
 								type="number"
 								placeholder="01"
@@ -176,6 +195,7 @@ const Form = () => {
 						<h3>
 							Altura:
 							<input
+								value={data.Altura}
 								name="Altura"
 								type="number"
 								placeholder="01"
@@ -186,6 +206,7 @@ const Form = () => {
 						<h3>
 							Peso:
 							<input
+								value={data.Peso}
 								name="Peso"
 								type="number"
 								placeholder="01"
@@ -211,7 +232,7 @@ const Form = () => {
 				</form>
 				<div className={styles.image}>
 					<img src={image} alt="" />
-					<button onClick={getImage} className={`${styles.button} ${styles.reload}`}>
+					<button ref={reloadImg} onClick={getImage} className={`${styles.button} ${styles.reload}`}>
 						<img src={reload} alt="type icon" />
 						<tooltip>generar imagen</tooltip>
 					</button>
